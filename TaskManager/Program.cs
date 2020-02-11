@@ -15,7 +15,7 @@ namespace TaskManager
         public static void Main(string[] args)
         {
             CreateWebHostBuilder(args).Build().Run();
-        }
+        }//aa
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
