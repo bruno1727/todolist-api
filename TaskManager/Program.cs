@@ -9,7 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
 namespace TaskManager
-{
+{//a
     public class Program
     {
         public static void Main(string[] args)
