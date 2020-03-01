@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using TaskManager.Business;
+using TaskManager.Requests;
 
 namespace TaskManager.Controllers
 {
@@ -10,17 +12,23 @@ namespace TaskManager.Controllers
     public class TaskController : ControllerBase
     {
         [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        public IActionResult Get()
         {
-            return new List<string>
-            {
-                "Escovar os dentes",
-                "Tomar café da manha",
-                "Ir trabalhar",
-                "Voltar para casa",
-                "Jantar",
-                "Dormir",
-            };
+            return Ok(Task.GetTasks());
+        }
+
+        [HttpPost]
+        public IActionResult Post([FromBody] IncludeTaskRequest request)
+        {
+            Task.AddTask(request);
+            return Ok();
+        }
+
+        [HttpDelete("{task}")]
+        public IActionResult Delete(string task)
+        {
+            Task.RemoveTask(task);
+            return Ok();
         }
     }
 }
