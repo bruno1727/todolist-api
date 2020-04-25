@@ -2,6 +2,7 @@
 using System.Linq;
 using TaskManager.Models;
 using TaskManager.Requests;
+using TaskManager.Response;
 
 namespace TaskManager.Business
 {
@@ -11,29 +12,33 @@ namespace TaskManager.Business
         {
             using (var db = new TaskContext())
             {
-                var task = new TaskModel
-                {
-                    Description = request.Task
-                };
-                db.Task.Add(task);
+                var tasks = request.Tasks.Select(t => new TaskModel { Description = t.Description });
+                db.Task.AddRange(tasks);
                 db.SaveChanges();
             }
         }
 
-        public static List<string> GetTasks()
+        public static IEnumerable<TaskModel> GetTasks()
         {
             using (var db = new TaskContext())
             {
-                return db.Task.Select(t => t.Description).ToList();
+                return db.Task.ToList();
             }
         }
 
-        public static void RemoveTask(string task)
+        public static IEnumerable<TaskModel> RemoveTask(DeleteTaskRequest request)
         {
             using (var db = new TaskContext())
             {
-                var result = db.Task.FirstOrDefault(t => t.Description == task);
-                db.Task.Remove(result);
+                var deleted = new List<TaskModel>();
+                foreach(var id in request.TaskIds)
+                {
+                    var task = db.Task.Find(id);
+                    db.Task.Remove(task);
+                    deleted.Add(task);
+                }
+                db.SaveChanges();
+                return deleted;
             }
         }
     }

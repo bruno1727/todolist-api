@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace TaskManager.Requests
 {
     public class IncludeTaskRequest
     {
-        public string Task { get; set; }
+        public IEnumerable<TaskRequest> Tasks { get; set; }
     }
 }

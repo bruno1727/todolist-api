@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
+using System.Linq;
 using TaskManager.Business;
 using TaskManager.Requests;
+using TaskManager.Response;
 
 namespace TaskManager.Controllers
 {
@@ -14,7 +15,9 @@ namespace TaskManager.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok(TaskBusiness.GetTasks());
+            var tasks = TaskBusiness.GetTasks();
+            var response = tasks.Select(t => new TaskResponse { Id = t.Id, Description = t.Description });
+            return Ok(response);
         }
 
         [HttpPost]
@@ -24,11 +27,12 @@ namespace TaskManager.Controllers
             return Ok();
         }
 
-        [HttpDelete("{task}")]
-        public IActionResult Delete(string task)
+        [HttpPost("delete")]
+        public IActionResult Delete(DeleteTaskRequest request)
         {
-            TaskBusiness.RemoveTask(task);
-            return Ok();
+            var tasks = TaskBusiness.RemoveTask(request);
+            var response = tasks.Select(t => new TaskResponse { Id = t.Id, Description = t.Description });
+            return Ok(response);
         }
     }
 }
