@@ -14,20 +14,20 @@ namespace TaskManager.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok(Task.GetTasks());
+            return Ok(TaskBusiness.GetTasks());
         }
 
         [HttpPost]
         public IActionResult Post([FromBody] IncludeTaskRequest request)
         {
-            Task.AddTask(request);
+            TaskBusiness.AddTask(request);
             return Ok();
         }
 
         [HttpDelete("{task}")]
         public IActionResult Delete(string task)
         {
-            Task.RemoveTask(task);
+            TaskBusiness.RemoveTask(task);
             return Ok();
         }
     }
