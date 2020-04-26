@@ -14,16 +14,6 @@ namespace TaskManager
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<TaskModel>()
-                .HasKey(t => t.Id);
-
-            modelBuilder.Entity<TaskModel>()
-                .Property(t => t.Id)
-                .HasColumnName("taskid");
-
-            modelBuilder.Entity<TaskModel>()
-               .Property(t => t.Description)
-               .HasColumnName("description");
         }
     }
 }
