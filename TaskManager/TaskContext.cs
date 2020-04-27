@@ -14,6 +14,10 @@ namespace TaskManager
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<TaskModel>()
+                .Property(t => t.Description)
+                .IsRequired()
+                .HasMaxLength(256);
         }
     }
 }

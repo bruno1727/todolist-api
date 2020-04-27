@@ -2,15 +2,17 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TaskManager;
 
 namespace TaskManager.Migrations
 {
     [DbContext(typeof(TaskContext))]
-    partial class TaskContextModelSnapshot : ModelSnapshot
+    [Migration("20200426235831_NotNullableDescrition")]
+    partial class NotNullableDescrition
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
