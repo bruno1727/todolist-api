@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using TaskManager.Business;
+
 namespace TaskManager
 {
     public class Startup
@@ -27,6 +29,8 @@ namespace TaskManager
                   .AllowAnyHeader()
                   .AllowCredentials());
             });
+
+            services.AddScoped<TaskBusiness>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

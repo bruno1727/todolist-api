@@ -6,9 +6,9 @@ using TaskManager.Response;
 
 namespace TaskManager.Business
 {
-    public static class TaskBusiness
+    public class TaskBusiness
     {
-        public static void AddTask(IncludeTaskRequest request)
+        public void AddTask(IncludeTaskRequest request)
         {
             using (var db = new TaskContext())
             {
@@ -18,7 +18,7 @@ namespace TaskManager.Business
             }
         }
 
-        public static IEnumerable<TaskModel> GetTasks()
+        public IEnumerable<TaskModel> GetTasks()
         {
             using (var db = new TaskContext())
             {
@@ -26,7 +26,7 @@ namespace TaskManager.Business
             }
         }
 
-        public static IEnumerable<TaskModel> RemoveTask(DeleteTaskRequest request)
+        public IEnumerable<TaskModel> RemoveTask(DeleteTaskRequest request)
         {
             using (var db = new TaskContext())
             {
