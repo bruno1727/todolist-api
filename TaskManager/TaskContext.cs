@@ -9,7 +9,7 @@ namespace TaskManager
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Data Source=DESKTOP-GC2NVCF;Initial Catalog=taskmanager;Integrated Security=True");
+            optionsBuilder.UseSqlServer("Server=(localdb)\\MSSQLSERVER;Database=todolist;Trusted_Connection=True;");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
