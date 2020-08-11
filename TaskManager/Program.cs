@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 //aa
-namespace TaskManager
+namespace TodoList
 {//bb
     public class Program
     {

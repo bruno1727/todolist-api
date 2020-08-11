@@ -1,6 +1,6 @@
-﻿namespace TaskManager.Models
+﻿namespace TodoList.Models
 {
-    public class TaskModel
+    public class TodoModel
     {
         public int Id { get; set; }
 

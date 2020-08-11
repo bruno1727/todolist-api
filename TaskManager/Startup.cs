@@ -3,9 +3,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using TaskManager.Business;
+using TodoList.Business;
 
-namespace TaskManager
+namespace TodoList
 {
     public class Startup
     {
@@ -30,7 +30,7 @@ namespace TaskManager
                   .AllowCredentials());
             });
 
-            services.AddScoped<TaskBusiness>();
+            services.AddScoped<TodoBusiness>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

@@ -1,6 +1,6 @@
-﻿namespace TaskManager.Requests
+﻿namespace TodoList.Requests
 {
-    public class TaskRequest
+    public class TodoRequest
     {
         public string Description { get; set; }
     }

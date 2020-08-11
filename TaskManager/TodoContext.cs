@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using TaskManager.Models;
+using TodoList.Models;
 
-namespace TaskManager
+namespace TodoList
 {
-    public class TaskContext : DbContext
+    public class TodoContext : DbContext
     {
-        public DbSet<TaskModel> Task { get; set; }
+        public DbSet<TodoModel> Todo { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -14,7 +14,7 @@ namespace TaskManager
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<TaskModel>()
+            modelBuilder.Entity<TodoModel>()
                 .Property(t => t.Description)
                 .IsRequired()
                 .HasMaxLength(256);
