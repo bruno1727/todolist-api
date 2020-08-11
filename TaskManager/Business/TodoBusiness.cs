@@ -8,38 +8,36 @@ namespace TodoList.Business
 {
     public class TodoBusiness
     {
+        private readonly TodoContext _context;
+
+        public TodoBusiness(TodoContext context)
+        {
+            _context = context;
+        }
+
         public void AddTodo(IncludeTodoRequest request)
         {
-            using (var db = new TodoContext())
-            {
-                var todos = request.Todos.Select(t => new TodoModel { Description = t.Description });
-                db.Todo.AddRange(todos);
-                db.SaveChanges();
-            }
+            var todos = request.Todos.Select(t => new TodoModel { Description = t.Description });
+            _context.Todo.AddRange(todos);
+            _context.SaveChanges();
         }
 
         public IEnumerable<TodoModel> GetTodos()
         {
-            using (var db = new TodoContext())
-            {
-                return db.Todo.ToList();
-            }
+            return _context.Todo.ToList();
         }
 
         public IEnumerable<TodoModel> RemoveTodos(DeleteTodoRequest request)
         {
-            using (var db = new TodoContext())
+            var deleted = new List<TodoModel>();
+            foreach(var id in request.TodosIds)
             {
-                var deleted = new List<TodoModel>();
-                foreach(var id in request.TodosIds)
-                {
-                    var todo = db.Todo.Find(id);
-                    db.Todo.Remove(todo);
-                    deleted.Add(todo);
-                }
-                db.SaveChanges();
-                return deleted;
+                var todo = _context.Todo.Find(id);
+                _context.Todo.Remove(todo);
+                deleted.Add(todo);
             }
+            _context.SaveChanges();
+            return deleted;
         }
     }
 }

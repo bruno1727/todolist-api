@@ -7,9 +7,8 @@ namespace TodoList
     {
         public DbSet<TodoModel> Todo { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=todolist;Trusted_Connection=True;");
+        public TodoContext(DbContextOptions<TodoContext> options) : base(options)
+        { 
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
