@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Identity.UI.Pages.Internal.Account.Manage;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TodoList.Business;
@@ -22,7 +23,7 @@ namespace TodoList.Controllers
         }
 
         [HttpGet]
-        public IActionResult Get()
+        public ActionResult<List<TodoResponse>> Get()
         {
             var todos = _todoBusiness.GetTodos();
             var response = todos.Select(t => new TodoResponse { Id = t.Id, Description = t.Description });
