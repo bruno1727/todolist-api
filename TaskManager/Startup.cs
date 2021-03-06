@@ -29,7 +29,7 @@ namespace TodoList
                   .AllowAnyMethod()
                   .AllowAnyHeader()
                   .AllowCredentials());
-            });
+            });//teste
 
             services.AddDbContext<TodoContext>(options => options.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=todolist;Trusted_Connection=True;"));
 
