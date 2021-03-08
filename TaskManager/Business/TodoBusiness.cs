@@ -21,7 +21,7 @@ namespace TodoList.Business
             if (request.Todos == null || !request.Todos.Any())
                 throw new Exception("Nenhum item informado");
 
-            var todos = request.Todos.Select(t => new TodoModel { Description = t.Description });
+            var todos = request.Todos.Select(t => new TodoModel { Description = t.Description, CreationDate = t.CreationDate });
             _context.Todo.AddRange(todos);
             _context.SaveChanges();
         }

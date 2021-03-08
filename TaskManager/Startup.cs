@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using TodoList.Business;
+using TodoList.Middlewares.Extensions;
 
 namespace TodoList
 {
@@ -34,12 +35,15 @@ namespace TodoList
             services.AddDbContext<TodoContext>(options => options.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=todolist;Trusted_Connection=True;"));
 
             services.AddScoped<TodoBusiness>();
+            services.AddScoped<ConfigurationBusiness>();
 
             services.AddSwaggerDocument();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.UseConfigurations();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -55,6 +59,7 @@ namespace TodoList
             app.UseHttpsRedirection();
             app.UseMvc();
             app.UseCors("CorsPolicy");
+
         }
     }
 }
