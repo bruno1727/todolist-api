@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity.UI.Pages.Internal.Account.Manage;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using TodoList.Business;
@@ -26,10 +27,11 @@ namespace TodoList.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<TodoResponse>> Get()
+        public ActionResult<List<TodoResponse>> Get([FromQuery] DateTime? beginDate)
         {
+            
             var descriptionFromMiddleware = _configurationBusiness.Description;
-            var todos = _todoBusiness.GetTodos();
+            var todos = _todoBusiness.GetTodos(beginDate);
             var response = todos.Select(t => new TodoResponse { Id = t.Id, Description = t.Description, CreationDate = t.CreationDate});
             return Ok(response);
         }
@@ -37,6 +39,10 @@ namespace TodoList.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] IncludeTodoRequest request)
         {
+            if (!ModelState.IsValid)
+            {
+                throw new ValidationException("Erros: " + string.Join(". ", ModelState.Values.SelectMany(x => x.Errors).Select(x => x.ErrorMessage)));
+            }
             _todoBusiness.AddTodo(request);
             return Ok();
         }
@@ -47,6 +53,13 @@ namespace TodoList.Controllers
             var todos = _todoBusiness.RemoveTodos(request);
             var response = todos.Select(t => new TodoResponse { Id = t.Id, Description = t.Description });
             return Ok(response);
+        }
+
+        [HttpGet("apelidos")]
+        public IActionResult GetApelidos([FromQuery] string searchText)
+        {
+            var list = new List<string> { "@Tony Stark", "@Steve Roger", "@Thanos", "@Goku", "@Gohan", "@John Wick", "@Spider Man"};
+            return Ok(list.Where(a => a.ToUpper().Replace("@", "").StartsWith(searchText.ToUpper())).ToList());
         }
     }
 }

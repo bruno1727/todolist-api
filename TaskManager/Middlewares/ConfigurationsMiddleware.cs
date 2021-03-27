@@ -18,7 +18,7 @@ namespace TodoList.Middlewares
 
         public async Task InvokeAsync(HttpContext context, TodoBusiness todoBusiness, ConfigurationBusiness configurationBusiness)
         {
-            configurationBusiness.Description = todoBusiness.GetTodos().FirstOrDefault()?.Description;
+            configurationBusiness.Description = todoBusiness.GetTodos(null).FirstOrDefault()?.Description;
             Console.WriteLine("teste");
 
             await _next(context);

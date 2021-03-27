@@ -21,14 +21,24 @@ namespace TodoList.Business
             if (request.Todos == null || !request.Todos.Any())
                 throw new Exception("Nenhum item informado");
 
-            var todos = request.Todos.Select(t => new TodoModel { Description = t.Description, CreationDate = t.CreationDate });
+            var todos = request.Todos.Select(t =>
+            {
+                return new TodoModel
+                {
+                    Description = t.Description,
+                    CreationDate = t.CreationDate.HasValue ? t.CreationDate : DateTime.Now
+                };
+            });
             _context.Todo.AddRange(todos);
             _context.SaveChanges();
         }
 
-        public IEnumerable<TodoModel> GetTodos()
+        public IEnumerable<TodoModel> GetTodos(DateTime? beginDate)
         {
-            return _context.Todo.ToList();
+            if(!beginDate.HasValue)
+                return _context.Todo.ToList();
+            else
+                return _context.Todo.Where(t => t.CreationDate > beginDate).ToList();
         }
 
         public IEnumerable<TodoModel> RemoveTodos(DeleteTodoRequest request)

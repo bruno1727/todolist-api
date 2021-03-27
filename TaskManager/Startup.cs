@@ -5,6 +5,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using TodoList.Business;
+using TodoList.Extensions;
+using TodoList.Handler;
 using TodoList.Middlewares.Extensions;
 
 namespace TodoList
@@ -36,12 +38,18 @@ namespace TodoList
 
             services.AddScoped<TodoBusiness>();
             services.AddScoped<ConfigurationBusiness>();
+            services.AddTransient<IExceptionHandler, ExceptionHandler>();
 
             services.AddSwaggerDocument();
+            services.Configure<ApiBehaviorOptions>(options =>
+            {
+                options.SuppressModelStateInvalidFilter = true;
+            });
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.UseCustomExceptionHandler();
             app.UseConfigurations();
 
             if (env.IsDevelopment())
