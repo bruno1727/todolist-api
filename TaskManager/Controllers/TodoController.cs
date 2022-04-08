@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Cors;
-using Microsoft.AspNetCore.Identity.UI.Pages.Internal.Account.Manage;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;

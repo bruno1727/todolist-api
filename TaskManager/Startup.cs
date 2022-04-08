@@ -22,8 +22,6 @@ namespace TodoList
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-
             services.AddCors(options =>
             {
                 options.AddPolicy(
@@ -39,20 +37,23 @@ namespace TodoList
             services.AddScoped<TodoBusiness>();
             services.AddScoped<ConfigurationBusiness>();
             services.AddTransient<IExceptionHandler, ExceptionHandler>();
+            services.AddTransient<ExceptionHandlerCollection, ExceptionHandlerCollection>();
 
             services.AddSwaggerDocument();
             services.Configure<ApiBehaviorOptions>(options =>
             {
                 options.SuppressModelStateInvalidFilter = true;
             });
-        }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+            services.AddMvcCore().AddApiExplorer();
+        }
+        
+        public void Configure(IApplicationBuilder app, Microsoft.AspNetCore.Hosting.IWebHostEnvironment env)
         {
-            app.UseCustomExceptionHandler();
+            //app.UseCustomExceptionHandler();
             app.UseConfigurations();
 
-            if (env.IsDevelopment())
+            if (env.EnvironmentName == "Development")
             {
                 app.UseDeveloperExceptionPage();
             }
@@ -65,7 +66,6 @@ namespace TodoList
             app.UseSwaggerUi3();
 
             app.UseHttpsRedirection();
-            app.UseMvc();
             app.UseCors("CorsPolicy");
 
         }
