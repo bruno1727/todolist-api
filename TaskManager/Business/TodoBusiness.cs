@@ -11,9 +11,11 @@ namespace TodoList.Business
     {
         private readonly TodoContext _context;
 
-        public TodoBusiness(TodoContext context)
+        public TodoBusiness(
+            //TodoContext context
+            )
         {
-            _context = context;
+            //_context = context;
         }
 
         public void AddTodo(IncludeTodoRequest request)

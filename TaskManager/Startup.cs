@@ -32,7 +32,7 @@ namespace TodoList
                   .AllowCredentials());
             });//teste
 
-            services.AddDbContext<TodoContext>(options => options.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=todolist;Trusted_Connection=True;"));
+            //services.AddDbContext<TodoContext>(options => options.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=todolist;Trusted_Connection=True;"));
 
             services.AddScoped<TodoBusiness>();
             services.AddScoped<ConfigurationBusiness>();
@@ -50,6 +50,7 @@ namespace TodoList
         
         public void Configure(IApplicationBuilder app, Microsoft.AspNetCore.Hosting.IWebHostEnvironment env)
         {
+
             //app.UseCustomExceptionHandler();
             app.UseConfigurations();
 
